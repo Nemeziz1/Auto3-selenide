@@ -39,4 +39,15 @@ public class AlphaDebitCardTest {
         request.$(".button").click();
         $(".input_invalid .input__sub").shouldHave(Condition.exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
+
+    @Test
+    void notCheckbox() {
+        open("http://localhost:9999");
+        SelenideElement request = $(".form");
+        request.$("[data-test-id=name] input").setValue("Корякин Андрей");
+        request.$("[data-test-id=phone] input").setValue("+79999999999");
+        //не установили чекбокс, но пытаемся создать заявку
+        request.$(".button").click();
+        $(".input_invalid .checkbox__text").shouldHave(Condition.exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
+    }
 }
